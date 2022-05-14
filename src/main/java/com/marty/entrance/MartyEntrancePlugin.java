@@ -85,7 +85,11 @@ public class MartyEntrancePlugin extends Plugin
 					if (user.equals(username)) {
 						log.info("User matched");
 						File audioFile = new File("sounds/" + sound);
-						AudioPlayer.play(audioFile.toString(), config);
+						try {
+							AudioPlayer.play(audioFile.toString(), config);
+						} catch (Exception e) {
+							client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", e.toString(), "[Marty's Entrance Error]");
+						}
 					} else {
 						if (user.length() != username.length()) {
 							log.info("User: " + user + "length: " + user.length());

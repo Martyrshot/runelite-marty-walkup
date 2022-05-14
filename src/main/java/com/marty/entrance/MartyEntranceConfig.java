@@ -30,4 +30,13 @@ public interface MartyEntranceConfig extends Config
 	default int volume() {
 		return 60;
 	}
+
+	@ConfigItem(
+			keyName = "mute",
+			name = "Mute",
+			description = "Mute entrance sounds."
+	)
+	default boolean mute() {
+		return false;
+	}
 }
