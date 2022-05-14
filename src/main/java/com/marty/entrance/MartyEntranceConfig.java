@@ -4,19 +4,18 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
-@ConfigGroup("example")
+@ConfigGroup("Marty's Entrance Plugin")
 public interface MartyEntranceConfig extends Config
 {
-	// TODO: update description based on if it's comma seperated or newline
 	@ConfigItem(
 		keyName = "friendsAndSounds",
 		name = "Friends to announce",
-		description = "A comma seperated list of friends and the sounds to use when they log in."
+		description = "Usernames and their entrance sound."
 	)
 	default String friendsAndSounds()
 	{
 		//noinspection SpellCheckingInspection
-		return "Martyrshot=marty.wav,ItsAirdog=baseball.wav,Dead Leaner=marty.wav";
+		return "Martyrshot=marty.wav\nItsAirdog=baseball.wav\nDead Leaner=marty.wav";
 	}
 
 	@ConfigItem(
@@ -43,7 +42,7 @@ public interface MartyEntranceConfig extends Config
 	@ConfigItem(
 			keyName = "interrupt",
 			name = "Interrupt Sound",
-			description = "Interrupt entrance sounds to play the most recent."
+			description = "Immediately start playing the latest sound."
 	)
 	default boolean interrupt() {
 		return false;

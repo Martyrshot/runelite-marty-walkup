@@ -35,7 +35,7 @@ public class MartyEntrancePlugin extends Plugin
 			{
 				String username = msgContent.split(" has")[0];
 				log.info("Got sign in message for user: " + username + ".");
-				String[] pairs = config.friendsAndSounds().split(",");
+				String[] pairs = config.friendsAndSounds().split("\n");
 				char [] usernameArr = username.toCharArray();
 				for (int i = 0; i < usernameArr.length; i++)
 				{
