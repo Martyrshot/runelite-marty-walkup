@@ -3,7 +3,12 @@ package com.marty.entrance;
 import javax.sound.sampled.*;
 import java.net.*;
 import java.io.*;
+import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class AudioPlayer {
+    private static Clip clip = null;
     public static void play(String fileName, MartyEntranceConfig config) throws UnsupportedAudioFileException,
                                                                                     IOException,
                                                                                     IllegalArgumentException,
@@ -20,8 +25,35 @@ public class AudioPlayer {
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
 
-        setVolume(clip, (float) config.volume());
-        clip.start();
+        AudioPlayer.setVolume(clip, (float) config.volume());
+        if (AudioPlayer.clip == null || !AudioPlayer.clip.isRunning())
+        {
+            AudioPlayer.clip = clip;
+            AudioPlayer.clip.start();
+        } else
+        {
+            long timeRemainingMS = AudioPlayer.clip.getMicrosecondLength() - AudioPlayer.clip.getMicrosecondPosition();
+            try {
+                if (config.interrupt()) {
+                    if (AudioPlayer.clip != null && AudioPlayer.clip.isRunning()) {
+                        AudioPlayer.clip.stop();
+                    }
+                    AudioPlayer.clip = clip;
+                    AudioPlayer.clip.start();
+                } else {
+                    while (AudioPlayer.clip.isRunning()) {
+                        TimeUnit.MICROSECONDS.sleep(timeRemainingMS);
+                        if (!AudioPlayer.clip.isRunning()) {
+                            AudioPlayer.clip = clip;
+                            AudioPlayer.clip.start();
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.info("Failed to sleep: " + e);
+            }
+        }
     }
 
     private static void setVolume(Clip c, float volume)
