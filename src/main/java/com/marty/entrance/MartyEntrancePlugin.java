@@ -5,7 +5,10 @@ import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
+import net.runelite.api.GameState;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -24,6 +27,62 @@ public class MartyEntrancePlugin extends Plugin
 	@Inject
 	private MartyEntranceConfig config;
 
+	private String displayName = null;
+	private boolean playOnFirstTick = false;
+	@Subscribe
+	public void onGameTick(GameTick event)
+	{
+		if (this.displayName == null && client.getGameState() == GameState.LOGGED_IN && this.playOnFirstTick)
+		{
+			if (client.getLocalPlayer() == null || client.getLocalPlayer().getName() == null)
+			{
+				log.info("No displayname yet...");
+				return;
+			}
+			this.displayName = client.getLocalPlayer().getName();
+			char[] displayNameArr = this.displayName.toCharArray();
+			for (int i = 0; i < displayNameArr.length; i++)
+			{
+				if ((int)displayNameArr[i] == 160)
+				{
+					displayNameArr[i] = ' ';
+				}
+			}
+			this.displayName = new String(displayNameArr);
+			log.info("User " + displayName + " logged in.");
+			String[] pairs = config.friendsAndSounds().split("\n");
+			for (String p: pairs)
+			{
+				String[] pair = p.split("=");
+				if (pair.length != 2) continue;
+				String user = pair[0];
+				String sound = pair[1];
+				if (user.equals(this.displayName))
+				{
+					try {
+						File audioFile = new File("sounds/" + sound);
+						AudioPlayer.play(audioFile.toString(), config);
+					} catch (Exception e) {
+						client.addChatMessage(ChatMessageType.BROADCAST, "", e.toString(),
+								"[Marty's Entrance Error]");
+					}
+					return;
+				}
+			}
+		}
+	}
+	@Subscribe
+	public void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (client.getGameState() == GameState.LOGGED_IN) {
+			this.playOnFirstTick = config.playOwnSound() && !config.mute();
+		}
+		if (this.displayName != null && client.getGameState() == GameState.LOGIN_SCREEN
+				|| client.getGameState() == GameState.HOPPING) {
+			this.displayName = null;
+			this.playOnFirstTick = config.playOwnSound() && !config.mute();
+		}
+	}
 	@Subscribe
 	@SuppressWarnings("unused")
 	public void onChatMessage(ChatMessage message)
@@ -61,6 +120,7 @@ public class MartyEntrancePlugin extends Plugin
 							client.addChatMessage(ChatMessageType.BROADCAST, "", e.toString(),
 												"[Marty's Entrance Error]");
 						}
+						return;
 					} else {
 						if (user.length() != username.length())
 						{

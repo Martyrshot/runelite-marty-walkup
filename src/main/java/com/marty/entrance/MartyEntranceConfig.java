@@ -27,7 +27,7 @@ public interface MartyEntranceConfig extends Config
 			max = 100
 	)
 	default int volume() {
-		return 60;
+		return 75;
 	}
 
 	@ConfigItem(
@@ -45,6 +45,15 @@ public interface MartyEntranceConfig extends Config
 			description = "Immediately start playing the latest sound."
 	)
 	default boolean interrupt() {
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "playOwnSound",
+			name = "Play your sound on login",
+			description = "Play your sound on login."
+	)
+	default boolean playOwnSound() {
 		return false;
 	}
 }
