@@ -15,7 +15,7 @@ public interface MartyEntranceConfig extends Config
 	default String friendsAndSounds()
 	{
 		//noinspection SpellCheckingInspection
-		return "Martyrshot=marty.wav\nItsAirdog=baseball.wav\nDead Leaner=marty.wav";
+		return "Martyrshot=marty.wav\nItsAirdog=baseball.wav\nJiffyman=jiffy_intro.wav";
 	}
 
 	@ConfigItem(

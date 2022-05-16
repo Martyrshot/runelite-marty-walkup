@@ -60,7 +60,7 @@ public class MartyEntrancePlugin extends Plugin
 				if (user.equals(this.displayName))
 				{
 					try {
-						File audioFile = new File("sounds/" + sound);
+						File audioFile = new File(AudioPlayer.getSoundsDir() + "/" + sound);
 						AudioPlayer.play(audioFile.toString(), config);
 					} catch (Exception e) {
 						client.addChatMessage(ChatMessageType.BROADCAST, "", e.toString(),
@@ -113,7 +113,7 @@ public class MartyEntrancePlugin extends Plugin
 					if (user.equals(username))
 					{
 						log.info("User matched");
-						File audioFile = new File("sounds/" + sound);
+						File audioFile = new File(AudioPlayer.getSoundsDir() + "/" + sound);
 						try {
 							AudioPlayer.play(audioFile.toString(), config);
 						} catch (Exception e) {
@@ -124,8 +124,8 @@ public class MartyEntrancePlugin extends Plugin
 					} else {
 						if (user.length() != username.length())
 						{
-							log.info("User: " + user + "length: " + user.length());
-							log.info(" Username length: " + username.length());
+							log.info("User: " + user + " length: " + user.length());
+							log.info(" Username " + username + " length: " + username.length());
 						}
 						int len = username.length();
 						if (user.length() <= username.length())
