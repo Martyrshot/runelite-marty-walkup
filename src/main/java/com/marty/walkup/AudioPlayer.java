@@ -1,4 +1,4 @@
-package com.marty.entrance;
+package com.marty.walkup;
 
 import javax.sound.sampled.*;
 import java.io.*;
@@ -56,7 +56,7 @@ public class AudioPlayer {
         }
         return AudioPlayer.fileLocation;
     }
-    public static void play(String fileName, MartyEntranceConfig config) throws UnsupportedAudioFileException,
+    public static void play(String fileName, MartyWalkupConfig config) throws UnsupportedAudioFileException,
                                                                                     IOException,
                                                                                     IllegalArgumentException,
                                                                                     SecurityException,

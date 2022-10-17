@@ -1,4 +1,4 @@
-package com.marty.entrance;
+package com.marty.walkup;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -19,17 +19,18 @@ import java.io.File;
 @PluginDescriptor(
 	name = "Marty's Entrance Plugin"
 )
-public class MartyEntrancePlugin extends Plugin
+public class MartyWalkupPlugin extends Plugin
 {
 	@Inject
 	private Client client;
 
 	@Inject
-	private MartyEntranceConfig config;
+	private MartyWalkupConfig config;
 
 	private String displayName = null;
 	private boolean playOnFirstTick = false;
 	@Subscribe
+	@SuppressWarnings("unused")
 	public void onGameTick(GameTick event)
 	{
 		if (this.displayName == null && client.getGameState() == GameState.LOGGED_IN && this.playOnFirstTick)
@@ -72,6 +73,7 @@ public class MartyEntrancePlugin extends Plugin
 		}
 	}
 	@Subscribe
+	@SuppressWarnings("unused")
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
 		if (client.getGameState() == GameState.LOGGED_IN) {
@@ -147,8 +149,8 @@ public class MartyEntrancePlugin extends Plugin
 	}
 
 	@Provides
-    MartyEntranceConfig provideConfig(ConfigManager configManager)
+	MartyWalkupConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(MartyEntranceConfig.class);
+		return configManager.getConfig(MartyWalkupConfig.class);
 	}
 }

@@ -1,11 +1,11 @@
-package com.marty.entrance;
+package com.marty.walkup;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 @ConfigGroup("Marty's Entrance Plugin")
-public interface MartyEntranceConfig extends Config
+public interface MartyWalkupConfig extends Config
 {
 	@ConfigItem(
 		keyName = "friendsAndSounds",
