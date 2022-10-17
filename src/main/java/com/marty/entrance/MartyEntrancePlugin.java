@@ -63,7 +63,7 @@ public class MartyEntrancePlugin extends Plugin
 						File audioFile = new File(AudioPlayer.getSoundsDir() + "/" + sound);
 						AudioPlayer.play(audioFile.toString(), config);
 					} catch (Exception e) {
-						client.addChatMessage(ChatMessageType.BROADCAST, "", e.toString(),
+						client.addChatMessage(ChatMessageType.CONSOLE, "", e.toString(),
 								"[Marty's Entrance Error]");
 					}
 					return;
@@ -117,7 +117,7 @@ public class MartyEntrancePlugin extends Plugin
 						try {
 							AudioPlayer.play(audioFile.toString(), config);
 						} catch (Exception e) {
-							client.addChatMessage(ChatMessageType.BROADCAST, "", e.toString(),
+							client.addChatMessage(ChatMessageType.CONSOLE, "", e.toString(),
 												"[Marty's Entrance Error]");
 						}
 						return;
