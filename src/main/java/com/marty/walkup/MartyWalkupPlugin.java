@@ -17,7 +17,7 @@ import java.io.File;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Marty's Entrance Plugin"
+	name = "Marty's Walk Up Plugin"
 )
 public class MartyWalkupPlugin extends Plugin
 {

@@ -4,7 +4,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
-@ConfigGroup("Marty's Entrance Plugin")
+@ConfigGroup("Marty's Walk Up Plugin")
 public interface MartyWalkupConfig extends Config
 {
 	@ConfigItem(
@@ -15,7 +15,7 @@ public interface MartyWalkupConfig extends Config
 	default String friendsAndSounds()
 	{
 		//noinspection SpellCheckingInspection
-		return "Martyrshot=marty.wav\nItsAirdog=baseball.wav\nJiffyman=jiffy_intro.wav";
+		return "Martyrshot=marty.wav\n";
 	}
 
 	@ConfigItem(
@@ -54,6 +54,6 @@ public interface MartyWalkupConfig extends Config
 			description = "Play your sound on login."
 	)
 	default boolean playOwnSound() {
-		return false;
+		return true;
 	}
 }
