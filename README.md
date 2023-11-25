@@ -4,12 +4,14 @@ music when they step up to the plate. It allows users to give
 each of their friends a sound to play when they log in.
 
 ## Settings
+**Note:** Sound files must be put in `$RUNELITE_DIR/sounds/marty/entrance/`. You may need to create the directories yourself.
+
 
 ### Friends to Announce
 This is where you assign sounds to play when your friends log in.
 To specify a sound to play for a particular username, add a new
-line with `username=sound.mp3`. Each username-sound pair must be
-on its own line, and only mp3 files are currently supported.
+line with `username=sound.wav`. Each username-sound pair must be
+on its own line, and only wav files are currently supported.
 
 ### Interrupt Sound
 When this box is checked, if a user logs in when a walk up sound
